@@ -43,7 +43,7 @@ export function getRecruiterStatus() {
   const model = hasOpenAi
     ? process.env.OPENAI_MODEL || 'gpt-4o-mini'
     : hasGemini
-    ? process.env.GEMINI_MODEL || 'gemini-2.5-flash'
+    ? process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite'
     : 'offline-facts';
 
   return {
@@ -224,7 +224,7 @@ export async function processChatTurn(message: string, history: any[]) {
 
   // Option 2: Google Gemini (Built-in environment key)
   try {
-    const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const model = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
     const ai = new GoogleGenAI();
 
     const contents: any[] = [];
