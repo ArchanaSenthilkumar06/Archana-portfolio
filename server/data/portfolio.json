@@ -1,0 +1,163 @@
+{
+  "candidate": {
+    "name": "Archana S.",
+    "role": "Artificial Intelligence & Data Science Engineering Student",
+    "institution": "M. Kumarasamy College of Engineering",
+    "degree": "B.Tech in Artificial Intelligence and Data Science",
+    "graduationYear": 2028,
+    "cgpa": "7.9 (through 4th semester)",
+    "location": "Tamil Nadu, India",
+    "email": "itsachu06@gmail.com",
+    "github": "https://github.com/ArchanaSenthilkumar06",
+    "linkedin": "https://www.linkedin.com/in/archanas06/",
+    "summary": "Artificial Intelligence and Data Science engineering student interested in Java, Spring Boot, SQL, generative AI, and full-stack development. Enjoys building practical applications and intelligent systems that address real-world problems."
+  },
+  "verifiedSkills": {
+    "languages": [
+      { "name": "Python", "level": "Proficient" },
+      { "name": "Java", "level": "Intermediate" }
+    ],
+    "frameworks": ["Spring Boot"],
+    "generativeAI": ["Generative AI (GenAI)"],
+    "databases": ["MySQL"],
+    "tools": ["Git", "GitHub", "VS Code", "IntelliJ IDEA"],
+    "areasOfInterest": [
+      "AI/ML",
+      "Generative AI",
+      "Full-stack development",
+      "IoT and intelligent systems",
+      "Cloud computing",
+      "Educational technology"
+    ]
+  },
+  "verifiedEducation": [
+    {
+      "institution": "M. Kumarasamy College of Engineering",
+      "degree": "B.Tech Artificial Intelligence and Data Science",
+      "duration": "2024–2028",
+      "score": "CGPA 7.9 (through 4th semester)"
+    },
+    {
+      "institution": "Bharani Park Matric Higher Secondary School",
+      "degree": "Higher Secondary Certificate (HSC)",
+      "duration": "2022–2024",
+      "score": "85.1%"
+    },
+    {
+      "institution": "Vivekanandha Matric Higher Secondary School",
+      "degree": "Secondary School Leaving Certificate (SSLC)",
+      "duration": "2022",
+      "score": "82.2%"
+    }
+  ],
+  "verifiedInternship": [
+    {
+      "role": "Java Full Stack Intern",
+      "organization": "Infosys Springboard",
+      "duration": "October 2025 – December 2025",
+      "description": "Developed a Banking Management System using Java, MySQL, and Spring Boot with a three-tier architecture, featuring secure authentication with SHA-256 and OTP, transaction logging, and mini-statement generation."
+    }
+  ],
+  "verifiedAchievements": [
+    {
+      "title": "1st Place — IGNITRIX Hackathon",
+      "details": "Winner in institutional hackathon for innovative engineering prototype."
+    },
+    {
+      "title": "Outstanding Performance — GDG Cloud Kochi, Code Vipassana Season 14",
+      "details": "Recognized in Google Developer Group cloud architecture workshops."
+    },
+    {
+      "title": "Exceptional Performance — GDG Cloud Kochi, Code Vipassana Season 13",
+      "details": "Commended for hands-on cloud development and problem solving."
+    },
+    {
+      "title": "Global Rank 1933 — TCS CodeVita Season XIII",
+      "details": "Competitive programming achievement in worldwide coding contest."
+    },
+    {
+      "title": "Winner — National Children's Science Congress",
+      "details": "Presented an original research-oriented science project."
+    }
+  ],
+  "verifiedCertificationsAndPresentations": [
+    { "title": "Cryptography and Network Security", "issuer": "NPTEL" },
+    { "title": "Cloud Computing", "issuer": "NPTEL" },
+    { "title": "Modern AI", "issuer": "Cisco" },
+    { "title": "Cloud Computing", "issuer": "Microsoft" },
+    { "title": "Java Foundation", "issuer": "Infosys Springboard" },
+    { "title": "Project Presentation", "forum": "IETE Student Forum, Mirai '26" },
+    { "title": "Paper Presentation", "forum": "IEEE KPR" },
+    { "title": "Hackathon", "organizer": "Unstop Club" }
+  ],
+  "verifiedProjects": [
+    {
+      "id": "bhumi-net",
+      "title": "BHUMI-NET — Emergency Communication & Monitoring Network",
+      "type": "IoT / Emergency Hardware Prototype",
+      "description": "An IoT-based emergency communication and worker-monitoring system for communication-denied environments using ESP32, MAX30102, SIM800L, real-time alerts, and dashboard-based monitoring.",
+      "technologies": ["ESP32", "IoT", "Python", "MAX30102", "SIM800L"],
+      "liveDemo": "https://bhumi-software.vercel.app",
+      "repository": "https://github.com/ArchanaSenthilkumar06/BHUMI-SOFTWARE.git",
+      "disclaimer": "Prototype architecture for low-signal emergency environments; not claimed to be deployed in live civil operations."
+    },
+    {
+      "id": "career-craft-ai",
+      "title": "Career Craft AI — AI-Powered Career Guidance and Resume Analysis Platform",
+      "type": "Full-Stack Web Platform",
+      "description": "Full-stack career-preparation application to compare resumes with job descriptions, identify relevant and missing keywords, discover potential skill gaps, and receive personalized suggestions and guidance.",
+      "technologies": ["React", "TypeScript", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Gemini API"],
+      "database": "careercraft_ai (collections: users, resumes, resumeanalyses, academicrecords, analysisreports, appstates)",
+      "liveDemo": null,
+      "repository": null,
+      "disclaimer": "Does not claim guaranteed job selection or official ATS certification."
+    },
+    {
+      "id": "mind-mate-ai",
+      "title": "Mind Mate AI — Adaptive Learning Assistant",
+      "type": "AI Behavioral System",
+      "description": "AI-driven learning assistant designed to analyze student behavior patterns (planner, procrastinator, AI learner, self-studier) and generate personalized study strategies and schedules.",
+      "technologies": ["AI/ML", "Python", "Adaptive Learning"],
+      "liveDemo": null,
+      "repository": "https://github.com/ArchanaSenthilkumar06/Mind-Mate-AI.git"
+    },
+    {
+      "id": "banking-simulation",
+      "title": "Banking Simulation Management System",
+      "type": "Full-Stack Enterprise Service",
+      "description": "Full-stack banking simulation using Java, Spring Boot, and MySQL featuring SHA-256 and OTP authentication, atomic transactions, and mini-statement generation.",
+      "technologies": ["Java", "Spring Boot", "MySQL", "SHA-256", "OTP"],
+      "liveDemo": null,
+      "repository": "https://github.com/ArchanaSenthilkumar06/Banking-simulator1.git",
+      "disclaimer": "Simulation prototype developed during Infosys Springboard internship; not a production banking institution."
+    },
+    {
+      "id": "geoguard-ai",
+      "title": "GeoGuard AI — Rockfall Prediction & Alert System",
+      "type": "AI Hazard Prevention Concept",
+      "description": "AI-based early-warning concept for open-pit mines that analyzes monitoring data to identify potential rockfall risks and support preventive safety decisions.",
+      "technologies": ["AI/ML", "Python", "Geotechnical Risk Modeling"],
+      "liveDemo": null,
+      "repository": "https://github.com/ArchanaSenthilkumar06/Mineguard-Rockfall-Prediction.git",
+      "disclaimer": "Conceptual risk-monitoring framework; does not claim commercial mine deployment."
+    },
+    {
+      "id": "heart-disease-prediction",
+      "title": "Heart Disease Prediction & Health Analytics",
+      "type": "Machine Learning Diagnostic Classification",
+      "description": "Predictive classification model evaluating clinical biomarkers (cholesterol, resting ECG, max heart rate) to assess cardiovascular risk profiles.",
+      "technologies": ["Machine Learning", "Python", "Scikit-learn", "Pandas"],
+      "liveDemo": null,
+      "repository": "https://github.com/ArchanaSenthilkumar06/HEART-DISEASE-PREDICTION.git"
+    },
+    {
+      "id": "emoji-usage-tweets",
+      "title": "Emoji Usage in Festival Tweets",
+      "type": "NLP & Sentiment Analysis",
+      "description": "Natural language processing and sentiment analysis exploring emotional resonance and emoji distributions across festival Twitter datasets.",
+      "technologies": ["NLP", "Python", "Sentiment Analysis", "Twitter Data"],
+      "liveDemo": null,
+      "repository": "https://github.com/ArchanaSenthilkumar06/Emoji-usage-in-festival-tweets.git"
+    }
+  ]
+}

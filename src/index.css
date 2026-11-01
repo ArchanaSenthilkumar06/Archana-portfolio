@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #10060D;
+    --bg-secondary: #260817;
+    --accent-glow: #5A0C2E;
+    --particle-pink: #FF4F87;
+    --line-pink: #E94B82;
+    --ambient-pink: #C2185B;
+    --accent-crimson: #E11D48;
+    --accent-burgundy: #6D102D;
+    --accent-dark-maroon: #3B081A;
+  }
+
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    max-width: 100vw;
+  }
+
+  body {
+    background-color: #10060D;
+    color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #10060D;
+}
+::-webkit-scrollbar-thumb {
+  background: #260817;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E94B82;
+}
+
+/* Restrained glow and glass effects */
+.crimson-glow {
+  box-shadow: 0 0 40px -10px rgba(225, 29, 72, 0.25);
+}
+
+.crimson-glow-strong {
+  box-shadow: 0 0 60px -5px rgba(225, 29, 72, 0.35);
+}
+
+.burgundy-glass {
+  background: rgba(18, 6, 16, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(225, 29, 72, 0.15);
+}
+
+.burgundy-glass-card {
+  background: linear-gradient(135deg, rgba(26, 8, 20, 0.78) 0%, rgba(14, 5, 12, 0.82) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(225, 29, 72, 0.14);
+}
+
+.burgundy-glass-card:hover {
+  border-color: rgba(225, 29, 72, 0.35);
+  box-shadow: 0 10px 35px -10px rgba(225, 29, 72, 0.2);
+}
+
+.subtle-grid-bg {
+  background-image: radial-gradient(rgba(225, 29, 72, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
