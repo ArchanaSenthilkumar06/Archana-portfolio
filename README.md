@@ -27,7 +27,7 @@ Featuring a futuristic dark burgundy & crimson aesthetic, verified project showc
   - Sliding-window rate limiting, input validation, conversation history pruning, and timeout handling.
 - **Contact Form Email Delivery**:
   - Sends contact form submissions through EmailJS using the server-side Express endpoint.
-  - Requires an EmailJS service ID, template ID, and public key in environment variables.
+  - Requires the EmailJS service ID, template ID, public key, and private key in environment variables.
 - **Verified Credentials**:
   - Education: M. Kumarasamy College of Engineering (B.Tech AI & DS, 2024–2028, CGPA 7.9 through 4th semester), Bharani Park Matric (HSC 85.1%), Vivekanandha Matric (SSLC 82.2%).
   - Internship: Java Full Stack Intern at Infosys Springboard (Oct–Dec 2025).
@@ -112,10 +112,11 @@ PORT=3000
 EMAILJS_SERVICE_ID="service_xxxxxxx"
 EMAILJS_TEMPLATE_ID="template_xxxxxxx"
 EMAILJS_PUBLIC_KEY="your_emailjs_public_key"
+EMAILJS_PRIVATE_KEY="your_emailjs_private_key"
 ```
 > **Note**: The portfolio frontend runs completely and beautifully without an API key! If `OPENAI_API_KEY` is omitted, the AI Recruiter will display a clear setup helper alongside verified facts, ensuring zero fabricated responses.
 
-To enable contact form delivery, create an EmailJS service connected to your email provider and a template addressed to the inbox that should receive messages. The template must use `{{name}}`, `{{email}}`, `{{subject}}`, and `{{message}}` placeholders. Set `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, and `EMAILJS_PUBLIC_KEY` from the EmailJS dashboard.
+To enable contact form delivery, create an EmailJS service connected to your email provider and a template addressed to the inbox that should receive messages. The template must use `{{name}}`, `{{email}}`, `{{subject}}`, and `{{message}}` placeholders. Set `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, and `EMAILJS_PUBLIC_KEY` from the EmailJS dashboard. Set the account's private key as `EMAILJS_PRIVATE_KEY`; keep it only in Render or your local environment and never commit it.
 
 ### 3. Run the Development Server
 ```bash
@@ -137,7 +138,7 @@ This project includes a Render Blueprint in `render.yaml` for the Express server
 
 1. Push the repository to GitHub and open [Render Blueprints](https://dashboard.render.com/blueprints).
 2. Select **New Blueprint Instance**, connect `ArchanaSenthilkumar06/Archana-portfolio`, and deploy the `main` branch.
-3. Enter `GEMINI_API_KEY`, `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, and `EMAILJS_PUBLIC_KEY` when prompted.
+3. Enter `GEMINI_API_KEY`, `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY`, and `EMAILJS_PRIVATE_KEY` when prompted. Keep the EmailJS private key secret.
 4. Wait for the first deploy to finish, then open the Render service URL and check `/api/health`.
 
 The free web service may spin down after inactivity, so its first request after a pause can take longer. If you change environment variables later, save them in the Render dashboard and redeploy/restart the service.

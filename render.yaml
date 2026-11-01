@@ -22,3 +22,5 @@ services:
         value: template_kftks3h
       - key: EMAILJS_PUBLIC_KEY
         value: OdPKA-y21b2JOKC17
+      - key: EMAILJS_PRIVATE_KEY
+        sync: false

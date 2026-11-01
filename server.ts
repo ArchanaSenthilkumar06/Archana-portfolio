@@ -93,8 +93,9 @@ app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
   const emailJsServiceId = process.env.EMAILJS_SERVICE_ID?.trim();
   const emailJsTemplateId = process.env.EMAILJS_TEMPLATE_ID?.trim();
   const emailJsPublicKey = process.env.EMAILJS_PUBLIC_KEY?.trim();
+  const emailJsPrivateKey = process.env.EMAILJS_PRIVATE_KEY?.trim();
 
-  if (!emailJsServiceId || !emailJsTemplateId || !emailJsPublicKey) {
+  if (!emailJsServiceId || !emailJsTemplateId || !emailJsPublicKey || !emailJsPrivateKey) {
     return res.status(503).json({
       error: 'EMAIL_NOT_CONFIGURED',
       message:
@@ -113,6 +114,7 @@ app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
         service_id: emailJsServiceId,
         template_id: emailJsTemplateId,
         user_id: emailJsPublicKey,
+        accessToken: emailJsPrivateKey,
         template_params: {
           name: senderName,
           email: senderEmail,
