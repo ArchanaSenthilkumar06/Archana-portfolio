@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getRecruiterStatus, processChatTurn } from './server/recruiterService.ts';
@@ -91,15 +90,15 @@ app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
     (typeof subject === 'string' ? subject.trim() : '').replace(/[\r\n]+/g, ' ').slice(0, 200) ||
     'Portfolio Inquiry';
   const emailMessage = message.trim().slice(0, 3000);
-  const gmailUser = process.env.GMAIL_USER?.trim();
-  const gmailAppPassword = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, '');
+  const resendApiKey = process.env.RESEND_API_KEY?.trim();
+  const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim();
   const recipient = process.env.CONTACT_TO_EMAIL?.trim();
 
-  if (!gmailUser || !gmailAppPassword || !recipient) {
+  if (!resendApiKey || !fromEmail || !recipient) {
     return res.status(503).json({
       error: 'EMAIL_NOT_CONFIGURED',
       message:
-        'Email delivery is not configured yet. Please email Archana directly at itsachu06@gmail.com.'
+        'Contact email delivery is not configured yet. Please email Archana directly at itsachu06@gmail.com.'
     });
   }
 
@@ -115,49 +114,63 @@ app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
       return entities[character];
     });
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
+
   try {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user: gmailUser, pass: gmailAppPassword },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 20000
-    });
-    const info = await transporter.sendMail({
-      from: gmailUser,
-      to: recipient,
-      replyTo: { name: senderName, address: senderEmail },
-      subject: emailSubject,
-      text: `From: ${senderName} <${senderEmail}>\n\n${emailMessage}`,
-      html: `<p><strong>From:</strong> ${escapeHtml(senderName)} &lt;${escapeHtml(senderEmail)}&gt;</p><p>${escapeHtml(emailMessage).replace(/\n/g, '<br>')}</p>`
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [recipient],
+        reply_to: `${senderName} <${senderEmail}>`,
+        subject: emailSubject,
+        text: `From: ${senderName} <${senderEmail}>\n\n${emailMessage}`,
+        html: `<p><strong>From:</strong> ${escapeHtml(senderName)} &lt;${escapeHtml(senderEmail)}&gt;</p><p>${escapeHtml(emailMessage).replace(/\n/g, '<br>')}</p>`
+      }),
+      signal: controller.signal
     });
 
-    console.log(`[Contact Email] Message sent with ID ${info.messageId}`);
+    const result = await response.json();
+    if (!response.ok) {
+      const errorName =
+        typeof result === 'object' &&
+        result !== null &&
+        'name' in result &&
+        typeof result.name === 'string'
+          ? result.name
+          : undefined;
+      console.error('[Contact Email] Resend rejected the message', {
+        status: response.status,
+        error: errorName
+      });
+      return res.status(502).json({
+        error: 'EMAIL_DELIVERY_FAILED',
+        message:
+          'The email provider could not deliver this message. Please try again later or email Archana directly at itsachu06@gmail.com.'
+      });
+    }
+
+    console.log('[Contact Email] Message accepted by Resend');
     return res.status(200).json({
       success: true,
       message: 'Your message was sent to Archana’s email inbox.'
     });
   } catch (error: unknown) {
-    const mailErrorCode =
-      typeof error === 'object' && error !== null && 'code' in error && typeof error.code === 'string'
-        ? error.code
-        : undefined;
-    const responseCode =
-      typeof error === 'object' &&
-      error !== null &&
-      'responseCode' in error &&
-      typeof error.responseCode === 'number'
-        ? error.responseCode
-        : undefined;
-    console.error('[Contact Email] Gmail delivery failed', {
-      code: mailErrorCode,
-      responseCode
+    console.error('[Contact Email] Resend request failed', {
+      error: error instanceof Error ? error.name : 'UnknownError'
     });
     return res.status(502).json({
       error: 'EMAIL_DELIVERY_FAILED',
       message:
-        'The email could not be sent right now. Please try again later or email Archana directly at itsachu06@gmail.com.'
+        'The email provider could not be reached. Please try again later or email Archana directly at itsachu06@gmail.com.'
     });
+  } finally {
+    clearTimeout(timeoutId);
   }
 });
 

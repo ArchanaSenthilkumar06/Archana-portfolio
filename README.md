@@ -39,7 +39,7 @@ Featuring a futuristic dark burgundy & crimson aesthetic, verified project showc
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 19, TypeScript, Vite 8, Tailwind CSS v4, Lucide React icons, Motion.
-- **Backend**: Node.js, Express, OpenAI SDK (`openai`), Nodemailer/Gmail SMTP, tsx, dotenv.
+- **Backend**: Node.js, Express, OpenAI SDK (`openai`), Resend email API, tsx, dotenv.
 - **Storage / Knowledge**: `server/data/portfolio.json` & `src/data/portfolioData.ts`.
 
 ---
@@ -51,7 +51,7 @@ Featuring a futuristic dark burgundy & crimson aesthetic, verified project showc
 ├── index.html                # Entry point with Google Fonts and meta tags
 ├── metadata.json             # App metadata & capabilities
 ├── package.json              # Unified dependencies and scripts
-├── server.ts                 # Express server with AI, Gmail contact email, and Vite middleware
+├── server.ts                 # Express server with AI, Resend contact email, and Vite middleware
 ├── server/
 │   └── data/
 │       └── portfolio.json    # Server-side verified knowledge base for AI Recruiter
@@ -108,14 +108,14 @@ OPENAI_MODEL="gpt-4o-mini"
 # Server Port (default: 3000)
 PORT=3000
 
-# Contact form Gmail delivery (use a Google App Password, not your Gmail password)
-GMAIL_USER="your-gmail-address@gmail.com"
-GMAIL_APP_PASSWORD="your-16-character-app-password"
+# Contact form email delivery through Resend (verify a domain you own first)
+RESEND_API_KEY="re_..."
+CONTACT_FROM_EMAIL="Portfolio Contact <contact@your-verified-domain.com>"
 CONTACT_TO_EMAIL="itsachu06@gmail.com"
 ```
 > **Note**: The portfolio frontend runs completely and beautifully without an API key! If `OPENAI_API_KEY` is omitted, the AI Recruiter will display a clear setup helper alongside verified facts, ensuring zero fabricated responses.
 
-To enable contact form email delivery, enable 2-Step Verification on the Gmail account used for `GMAIL_USER`, create an App Password in your Google Account security settings, and put that app password in `GMAIL_APP_PASSWORD`. Set `CONTACT_TO_EMAIL` to the inbox that should receive messages. Do not use your regular Gmail password. Restart the server after changing `.env`; submissions will report an error rather than appear successful until mail is configured.
+To enable contact form email delivery, create a Resend account, add and verify a domain you own, create an API key with sending access, and set `RESEND_API_KEY` and `CONTACT_FROM_EMAIL`. Set `CONTACT_TO_EMAIL` to the inbox that should receive messages. Resend requires a verified sending domain; a Gmail address or the Render hostname cannot be used as the sender domain. Keep the API key only in server-side environment variables.
 
 ### 3. Run the Development Server
 ```bash
@@ -137,7 +137,7 @@ This project includes a Render Blueprint in `render.yaml` for the Express server
 
 1. Push the repository to GitHub and open [Render Blueprints](https://dashboard.render.com/blueprints).
 2. Select **New Blueprint Instance**, connect `ArchanaSenthilkumar06/Archana-portfolio`, and deploy the `main` branch.
-3. Enter `GEMINI_API_KEY`, `GMAIL_USER`, and `GMAIL_APP_PASSWORD` when prompted. Use a newly generated Gemini API key and a Google App Password (not your regular Gmail password). These are private Render environment variables; never commit them.
+3. Enter `GEMINI_API_KEY`, `RESEND_API_KEY`, and `CONTACT_FROM_EMAIL` when prompted. The Resend sender address must use a domain you own and have verified with Resend. These are private Render environment variables; never commit the API keys.
 4. Wait for the first deploy to finish, then open the Render service URL. The blueprint configures `CONTACT_TO_EMAIL` as `itsachu06@gmail.com` and checks `/api/health`.
 
 The free web service may spin down after inactivity, so its first request after a pause can take longer. If you change environment variables later, save them in the Render dashboard and redeploy/restart the service.
