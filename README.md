@@ -131,6 +131,19 @@ npm start
 
 ---
 
+## ☁️ Deploy to Render
+
+This project includes a Render Blueprint in `render.yaml` for the Express server and built frontend.
+
+1. Push the repository to GitHub and open [Render Blueprints](https://dashboard.render.com/blueprints).
+2. Select **New Blueprint Instance**, connect `ArchanaSenthilkumar06/Archana-portfolio`, and deploy the `main` branch.
+3. Enter `GEMINI_API_KEY`, `GMAIL_USER`, and `GMAIL_APP_PASSWORD` when prompted. Use a newly generated Gemini API key and a Google App Password (not your regular Gmail password). These are private Render environment variables; never commit them.
+4. Wait for the first deploy to finish, then open the Render service URL. The blueprint configures `CONTACT_TO_EMAIL` as `itsachu06@gmail.com` and checks `/api/health`.
+
+The free web service may spin down after inactivity, so its first request after a pause can take longer. If you change environment variables later, save them in the Render dashboard and redeploy/restart the service.
+
+---
+
 ## 🧪 Testing Performed
 
 1. **Compilation & Type Checking**: Verified TypeScript clean build without errors via `tsc --noEmit`.
