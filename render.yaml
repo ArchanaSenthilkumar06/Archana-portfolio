@@ -16,9 +16,9 @@ services:
         sync: false
       - key: GEMINI_MODEL
         value: gemini-3.5-flash-lite
-      - key: RESEND_API_KEY
-        sync: false
-      - key: CONTACT_FROM_EMAIL
-        sync: false
-      - key: CONTACT_TO_EMAIL
-        value: itsachu06@gmail.com
+      - key: EMAILJS_SERVICE_ID
+        value: service_3rp0pzw
+      - key: EMAILJS_TEMPLATE_ID
+        value: template_kftks3h
+      - key: EMAILJS_PUBLIC_KEY
+        value: OdPKA-y21b2JOKC17

@@ -90,11 +90,11 @@ app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
     (typeof subject === 'string' ? subject.trim() : '').replace(/[\r\n]+/g, ' ').slice(0, 200) ||
     'Portfolio Inquiry';
   const emailMessage = message.trim().slice(0, 3000);
-  const resendApiKey = process.env.RESEND_API_KEY?.trim();
-  const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim();
-  const recipient = process.env.CONTACT_TO_EMAIL?.trim();
+  const emailJsServiceId = process.env.EMAILJS_SERVICE_ID?.trim();
+  const emailJsTemplateId = process.env.EMAILJS_TEMPLATE_ID?.trim();
+  const emailJsPublicKey = process.env.EMAILJS_PUBLIC_KEY?.trim();
 
-  if (!resendApiKey || !fromEmail || !recipient) {
+  if (!emailJsServiceId || !emailJsTemplateId || !emailJsPublicKey) {
     return res.status(503).json({
       error: 'EMAIL_NOT_CONFIGURED',
       message:
@@ -102,52 +102,29 @@ app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
     });
   }
 
-  const escapeHtml = (value: string) =>
-    value.replace(/[&<>"']/g, (character) => {
-      const entities: Record<string, string> = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
-      };
-      return entities[character];
-    });
-
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 15000);
 
   try {
-    const response = await fetch('https://api.resend.com/emails', {
+    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${resendApiKey}`,
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        from: fromEmail,
-        to: [recipient],
-        reply_to: `${senderName} <${senderEmail}>`,
-        subject: emailSubject,
-        text: `From: ${senderName} <${senderEmail}>\n\n${emailMessage}`,
-        html: `<p><strong>From:</strong> ${escapeHtml(senderName)} &lt;${escapeHtml(senderEmail)}&gt;</p><p>${escapeHtml(emailMessage).replace(/\n/g, '<br>')}</p>`
+        service_id: emailJsServiceId,
+        template_id: emailJsTemplateId,
+        user_id: emailJsPublicKey,
+        template_params: {
+          name: senderName,
+          email: senderEmail,
+          subject: emailSubject,
+          message: emailMessage
+        }
       }),
       signal: controller.signal
     });
 
-    const result = await response.json();
     if (!response.ok) {
-      const errorName =
-        typeof result === 'object' &&
-        result !== null &&
-        'name' in result &&
-        typeof result.name === 'string'
-          ? result.name
-          : undefined;
-      console.error('[Contact Email] Resend rejected the message', {
-        status: response.status,
-        error: errorName
-      });
+      console.error('[Contact Email] EmailJS rejected the message', { status: response.status });
       return res.status(502).json({
         error: 'EMAIL_DELIVERY_FAILED',
         message:
@@ -155,13 +132,13 @@ app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
       });
     }
 
-    console.log('[Contact Email] Message accepted by Resend');
+    console.log('[Contact Email] Message accepted by EmailJS');
     return res.status(200).json({
       success: true,
       message: 'Your message was sent to Archana’s email inbox.'
     });
   } catch (error: unknown) {
-    console.error('[Contact Email] Resend request failed', {
+    console.error('[Contact Email] EmailJS request failed', {
       error: error instanceof Error ? error.name : 'UnknownError'
     });
     return res.status(502).json({
